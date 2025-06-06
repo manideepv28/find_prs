@@ -103,3 +103,30 @@ python github_finder.py --token YOUR_TOKEN \
 4. **Generates structured reports** in `.csv`, `.txt`, and optionally `.json`.
 
 ---
+## **Advanced usage**
+
+### **1. Persistence System**
+- **Cache Management**: Added `repo_cache.pkl` file to store previously processed repositories
+- **Smart Skipping**: Automatically skips repositories processed within the last 7 days (configurable)
+- **Metadata Tracking**: Stores when each repo was processed and how many PRs were found
+
+### **2. Better Error Handling**
+- **Rate Limit Detection**: Properly handles 403 status codes (rate limits) with automatic retry
+- **404 Handling**: Gracefully handles repositories that are deleted or made private
+- **Data Validation**: Ensures API responses are in expected format before processing
+
+### **3. Improved Rate Limiting**
+- **Conservative Timing**: Increased sleep intervals to avoid hitting rate limits
+- **Dynamic Waiting**: Waits 60 seconds when rate limits are detected
+- **Periodic Saves**: Saves cache every 10 repositories to prevent data loss
+
+### **4. Enhanced CLI Options**
+- `--cache-file`: Specify custom cache file location
+- `--clear-cache`: Clear existing cache before running
+- `--no-skip-processed`: Force reprocessing of all repositories
+
+### **5. Robustness Improvements**
+- **Safe String Operations**: Fixed potential `None` value issues in descriptions
+- **Better PR Filtering**: More efficient date-based filtering of merged PRs  
+- **Type Safety**: Added proper type checking for API responses
+
